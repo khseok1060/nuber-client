@@ -37,12 +37,12 @@ const client = new ApolloClient({
       }
     }
   },
-  request: async(opreation: Operation) => {
+  request: async (opreation: Operation) => {
     opreation.setContext({
       headers: {
         "X-JWT": localStorage.getItem("jwt") || ""
       }
-    })
+    });
   },
   uri: "http://localhost:4000/graphql"
 });
