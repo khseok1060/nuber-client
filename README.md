@@ -18,4 +18,5 @@ Client for the (N)Uber Clone Course on Nomad Academy. GraphQL, Typescript, NodeJ
   - [ ] Edit Account
   - [ ] Settings
   - [ ] Saved Places
-  - [ ] 
+  - [ ] Add Place
+  - [ ] Challenge: Ride History
