@@ -1,7 +1,7 @@
-import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import bgImage from '../../images/bg.png';
-import styled from '../../typed-components';
+import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import bgImage from "../../images/bg.png";
+import styled from "../../typed-components";
 
 const Container = styled.div`
   height: 100vh;
@@ -9,7 +9,8 @@ const Container = styled.div`
 
 const Header = styled.header`
   height: 70%;
-  background: linear-gradient(rgba(0, 153, 196, 0.5), rgba(0, 153, 196, 0.4), url(${bgImage}));
+  background: linear-gradient(rgba(0, 153, 196, 0.5), rgba(0, 153, 196, 0.4)),
+    url(${bgImage});
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +62,7 @@ const SocialLink = styled.span`
   font-size: 20px;
 `;
 
-interface IProps extends RouteComponentProps<any>{}
+interface IProps extends RouteComponentProps<any> {}
 
 const LoginPresenter: React.SFC<IProps> = () => (
   <Container>
