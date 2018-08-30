@@ -9,26 +9,31 @@ const Container = styled.div``;
 interface IProps {
   isMenuOpen: boolean;
   toggleMenu: () => void;
+  loading: boolean;
 }
 
-const HomePresenter: React.SFC<IProps> = ({ isMenuOpen, toggleMenu }) => (
+const HomePresenter: React.SFC<IProps> = ({
+  isMenuOpen,
+  toggleMenu,
+  loading
+}) => (
   <Container>
     <Helmet>
       <title>Home / Nuber</title>
     </Helmet>
     <Sidebar
-      sidebar={<Menu/>}
+      sidebar={<Menu />}
       open={isMenuOpen}
       onSetOpen={toggleMenu}
-      styles={{ 
-        sidebar: { 
-          backgroundColor: "white", 
+      styles={{
+        sidebar: {
+          backgroundColor: "white",
           width: "80%",
           zIndex: "10"
-        } 
+        }
       }}
     >
-      <button onClick={() => toggleMenu()}>Open Sidebar</button>
+      {!loading && <button onClick={() => toggleMenu()}>Open Sidebar</button>}
     </Sidebar>
   </Container>
 );

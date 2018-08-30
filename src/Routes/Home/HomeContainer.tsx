@@ -11,7 +11,7 @@ interface IState {
 
 interface IProps extends RouteComponentProps<any> {}
 
-class ProfileQuery extends Query<userProfile>{}
+class ProfileQuery extends Query<userProfile> {}
 
 class HomeContainer extends React.Component<IProps, IState> {
   public state = {
@@ -22,7 +22,9 @@ class HomeContainer extends React.Component<IProps, IState> {
     const { isMenuOpen } = this.state;
     return (
       <ProfileQuery query={USER_PROFILE}>
-        <HomePresenter isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+        {({ loading }) => (
+          <HomePresenter loading={loading} isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+        )}
       </ProfileQuery>
     );
   }
