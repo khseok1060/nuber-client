@@ -111,7 +111,7 @@ const menuPresenter: React.SFC<IProps> = ({
           <SLink to={"/trips"}>Your Trips</SLink>
           <SLink to={"/settings"}>Settings</SLink>
           <ToggleDriving onClick={toggleDrivingFn} isDriving={user.isDriving}>
-            {user.isDriving ? "Stop driving" : "Start Driving"}
+            {user.isDriving ? "Stop driving" : "Start driving"}
           </ToggleDriving>
         </React.Fragment>
       )}
