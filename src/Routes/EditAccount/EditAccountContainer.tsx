@@ -34,7 +34,6 @@ class EditAccountContainer extends React.Component<IProps, IState> {
     lastName: "",
     profilePhoto: ""
   };
-
   public render() {
     const { email, firstName, lastName, profilePhoto } = this.state;
     return (
@@ -74,7 +73,7 @@ class EditAccountContainer extends React.Component<IProps, IState> {
       </ProfileQuery>
     );
   }
-
+  
   public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const {
       target: { name, value }

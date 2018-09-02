@@ -10,7 +10,7 @@ import styled from "../../typed-components";
 const Container = styled.div``;
 
 const ExtendedForm = styled(Form)`
-  padding: 0px 4px;
+  padding: 0px 40px;
 `;
 
 const ExtendedInput = styled(Input)`
