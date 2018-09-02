@@ -1,11 +1,11 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import Button from "../../Components/Button";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
 import Input from "../../Components/Input";
 import styled from "../../typed-components";
-import { updateProfile } from "../../types/api";
 
 const Container = styled.div``;
 
@@ -22,7 +22,7 @@ interface IProps {
   lastName: string;
   email: string;
   profilePhoto: string;
-  onSubmit: updateProfile;
+  onSubmit: MutationFn;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   loading: boolean;
 }
