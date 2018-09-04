@@ -18,7 +18,7 @@ const Image = styled.label`
   overflow: hidden;
   & img {
     width: 80px;
-    height: 80px;  
+    height: 80px;
   }
 `;
 
@@ -33,19 +33,22 @@ const Input = styled.input`
 
 interface IProps {
   uploading: boolean;
-  uploaded: boolean;
   fileUrl: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const PhotoInput: React.SFC<IProps> = ({ uploaded, uploading, fileUrl }) => (
+const PhotoInput: React.SFC<IProps> = ({
+  uploading,
+  fileUrl,
+  onChange
+}) => (
   <Container>
-    <Input id={"photo"} type="file" accept="image/*" />
+    <Input id={"photo"} type="file" accept="image/*" onChange={onChange} />
     <Image htmlFor="photo">
-      {!uploaded && !uploading && "➕"}
-      {!uploaded && uploading && "⏰"}
-      {uploaded && uploading && <img src={fileUrl} />}
+      {uploading && "⏰"}
+      {!uploading && <img src={fileUrl} />}
     </Image>
   </Container>
-)
+);
 
 export default PhotoInput;

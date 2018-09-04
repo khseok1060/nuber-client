@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { Mutation, Query } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
@@ -16,9 +17,7 @@ interface IState {
   lastName: string;
   email: string;
   profilePhoto: string;
-  uploaded: boolean;
   uploading: boolean;
-  file?: Blob;
 }
 
 interface IProps extends RouteComponentProps<any> {}
@@ -36,18 +35,10 @@ class EditAccountContainer extends React.Component<IProps, IState> {
     firstName: "",
     lastName: "",
     profilePhoto: "",
-    uploaded: false,
     uploading: false
   };
   public render() {
-    const {
-      email,
-      firstName,
-      lastName,
-      profilePhoto,
-      uploaded,
-      uploading
-    } = this.state;
+    const { email, firstName, lastName, profilePhoto, uploading } = this.state;
     return (
       <ProfileQuery
         query={USER_PROFILE}
@@ -82,7 +73,6 @@ class EditAccountContainer extends React.Component<IProps, IState> {
                 onInputChange={this.onInputChange}
                 loading={loading}
                 onSubmit={updateProfileFn}
-                uploaded={uploaded}
                 uploading={uploading}
               />
             )}
@@ -92,15 +82,26 @@ class EditAccountContainer extends React.Component<IProps, IState> {
     );
   }
 
-  public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+  public onInputChange: React.ChangeEventHandler<
+    HTMLInputElement
+  > = async event => {
     const {
       target: { name, value, files }
     } = event;
 
     if (files) {
       this.setState({
-        file: files[0]
+        uploading: true
       });
+      const formData = new FormData();
+      formData.append("file", files[0]);
+      formData.append("api_key", "657323298348636");
+      formData.append("upload_preset", "ecgs9far");
+      formData.append("timestamp", String(Date.now() / 1000));
+      const request = await axios.post(
+        "https://api.cloudinary.com/v1_1/dubkpxmci/image/upload",
+        formData
+      );
     }
     this.setState({
       [name]: value
@@ -124,8 +125,6 @@ class EditAccountContainer extends React.Component<IProps, IState> {
       }
     }
   };
-
-  public onFileChange;
 }
 
 export default EditAccountContainer;
