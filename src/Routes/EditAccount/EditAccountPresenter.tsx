@@ -5,6 +5,7 @@ import Button from "../../Components/Button";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
 import Input from "../../Components/Input";
+import PhotoInput from "../../Components/PhotoInput";
 import styled from "../../typed-components";
 
 const Container = styled.div``;
@@ -25,6 +26,8 @@ interface IProps {
   onSubmit: MutationFn;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   loading: boolean;
+  uploaded: boolean;
+  uploading: boolean;
 }
 
 const EditAccountPresenter: React.SFC<IProps> = ({
@@ -34,14 +37,21 @@ const EditAccountPresenter: React.SFC<IProps> = ({
   onSubmit,
   profilePhoto,
   onInputChange,
-  loading
+  loading,
+  uploaded,
+  uploading
 }) => (
   <Container>
     <Helmet>
-      <title>Edit Account | Number</title>
+      <title>Edit Account | Nuber</title>
     </Helmet>
     <Header title={"Edit Account"} backTo={"/"} />
     <ExtendedForm submitFn={onSubmit}>
+      <PhotoInput
+        uploaded={uploaded}
+        uploading={uploading}
+        fileUrl={profilePhoto}
+      />
       <ExtendedInput
         onChange={onInputChange}
         type={"text"}
