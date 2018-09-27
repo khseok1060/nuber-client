@@ -27,6 +27,7 @@ class HomeContainer extends React.Component<IProps, IState> {
   public map: google.maps.Map;
   public userMarker: google.maps.Marker;
   public toMarker: google.maps.Marker;
+  public directions: google.maps.DirectionsRenderer;
   public state = {
     isMenuOpen: false,
     lat: 0,
@@ -93,7 +94,6 @@ class HomeContainer extends React.Component<IProps, IState> {
         lng
       },
       disableDefaultUI: true,
-      minZoom: 8,
       zoom: 13
     };
     this.map = new maps.Map(mapNode, mapConfig);
@@ -142,15 +142,10 @@ class HomeContainer extends React.Component<IProps, IState> {
   public onAddressSubmit = async () => {
     const { toAddress } = this.state;
     const { google } = this.props;
-    const { maps } = google.maps;
+    const maps = google.maps;
     const result = await geoCode(toAddress);
     if (result !== false) {
       const { lat, lng, formatted_address: formattedAddress } = result;
-      this.setState({
-        toAddress: formattedAddress,
-        toLat: lat,
-        toLng: lng
-      });
       if (this.toMarker) {
         this.toMarker.setMap(null);
       }
@@ -160,9 +155,34 @@ class HomeContainer extends React.Component<IProps, IState> {
           lng
         }
       };
-      this.toMarker = new maps.Marker(toMarkerOptions); 
+      this.toMarker = new maps.Marker(toMarkerOptions);
       this.toMarker.setMap(this.map);
+      const bounds = new maps.LatLngBounds();
+      bounds.extend({ lat, lng });
+      bounds.extend({ lat: this.state.lat, lng: this.state.lng });
+      this.map.fitBounds(bounds);
+      this.setState(
+        {
+          toAddress: formattedAddress,
+          toLat: lat,
+          toLng: lng
+        },
+        this.createPath
+      );
     }
+  };
+  public createPath = () => {
+    const { toLat, toLng, lat, lng } = this.state;
+    if (this.directions) {
+      this.directions.setMap(null);
+    }
+    const renderOptions: google.maps.DirectionsRendererOptions = {
+      polylineOptions: {
+        strokeColor: "#000"
+      },
+      suppressMarkers: true
+    };
+    const directionService: google.maps.DirectionsService = new google.maps.DirectionsService();
   };
 }
 
